@@ -1,0 +1,14 @@
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\bin\Debug\netcoreapp2.1\CostTrackerAPI.deps.json
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\bin\Debug\netcoreapp2.1\CostTrackerAPI.runtimeconfig.json
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\bin\Debug\netcoreapp2.1\CostTrackerAPI.runtimeconfig.dev.json
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\bin\Debug\netcoreapp2.1\CostTrackerAPI.dll
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.csprojAssemblyReference.cache
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.csproj.CoreCompileInputs.cache
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.RazorAssemblyInfo.cache
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.RazorAssemblyInfo.cs
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.AssemblyInfoInputs.cache
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.AssemblyInfo.cs
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.RazorTargetAssemblyInfo.cache
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\bin\Debug\netcoreapp2.1\CostTrackerAPI.pdb
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.dll
+C:\Users\Danijel\Desktop\ComData test\CostTrackerAPI\CostTrackerAPI\obj\Debug\netcoreapp2.1\CostTrackerAPI.pdb
