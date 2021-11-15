@@ -11,7 +11,7 @@ import {
   Output,
 } from '@angular/core';
 import * as _ from 'lodash';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { CustomOption } from '../models/custom-option';
 import { TableColumn } from '../models/table-column';
 
 @Component({
@@ -31,9 +31,10 @@ export class EditableTableComponent
   @Input() emptyRow: any;
   @Input() reloadData: any;
   @Input() loading: boolean = false;
-  @Input() validate: Function;
   @Input() addData: Function;
   @Input() saveData: Function;
+  @Input() actionTemplates?: TemplateRef<any>[];
+  @Input() customAdd: Function;
   @Input() deleteData: (id: any) => void;
 
   @Output() onEditRow = new EventEmitter<boolean>();
@@ -124,11 +125,6 @@ export class EditableTableComponent
   }
 
   saveEdit(id: string): void {
-    var message = this.validate(this.editCache.data);
-    if (message !== '') {
-      this.message.create('error', message);
-      return;
-    }
     if (id == '0') {
       this.addData(this.editCache.data);
       this.cancelEdit('0');
@@ -194,7 +190,7 @@ export class EditableTableComponent
     this.onEditRow.emit(false);
   }
 
-  constructor(private message: NzMessageService) {}
+  constructor() {}
 
   ngAfterViewChecked(): void {
     if (this.editableRow && this.shouldScroll && !this.scrolled) {

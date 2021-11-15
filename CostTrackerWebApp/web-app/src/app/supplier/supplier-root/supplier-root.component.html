@@ -1,1 +1,12 @@
-<p>supplier-root works!</p>
+<editable-table
+  [title]="title"
+  [columns]="columns"
+  [loading]="loading"
+  [data]="tableData"
+  [reloadData]="reloadData"
+  [editable]="true"
+  [emptyRow]="emptyRow"
+  [saveData]="handleSave"
+  [addData]="handleAdd"
+  [deleteOption]="false"
+></editable-table>

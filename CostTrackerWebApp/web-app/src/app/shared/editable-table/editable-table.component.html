@@ -30,7 +30,7 @@
           <i nz-icon nzType="search"></i>
         </nz-filter-trigger>
       </th>
-      <th *ngIf="editable || editCache.edit" nzWidth="120px">
+      <th *ngIf="editable || editCache.edit || actionTemplates" nzWidth="120px">
         Actions
       </th>
     </tr>
@@ -61,14 +61,19 @@
           </ng-container>
         </td>
         <td
-          *ngIf="editable"
+          *ngIf="editable || actionTemplates"
         >
           <div
             nz-row
             [nzJustify]="
-              deleteOption ? 'space-around' : 'center'
+              deleteOption || actionTemplates ? 'space-around' : 'center'
             "
           >
+          <div nz-col *ngFor="let actionTemplate of actionTemplates">
+            <ng-container
+              *ngTemplateOutlet="actionTemplate; context: { data: data }"
+            ></ng-container>
+          </div>
             <div nz-col *ngIf="editable">
               <a
                 nz-tooltip
@@ -242,6 +247,20 @@
     </div>
     <div nz-col>
       <nz-space>
+        <div *nzSpaceItem >
+          <button
+          *ngIf="customAdd"
+            nz-tooltip
+            nzTooltipTitle="Add new"
+            nzTooltipPlacement="top"
+            nz-button
+            nzType="primary"
+            nzShape="circle"
+            (click)="customAdd()"
+          >
+            <i nz-icon nzType="plus" nzTheme="outline"></i>
+          </button>
+        </div>
         <div *nzSpaceItem >
           <button
           *ngIf="addOption"

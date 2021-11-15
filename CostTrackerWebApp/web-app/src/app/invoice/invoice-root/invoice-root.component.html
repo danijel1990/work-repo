@@ -1,1 +1,16 @@
-<p>invoice-root works!</p>
+<editable-table
+  [title]="title"
+  [columns]="columns"
+  [loading]="loading"
+  [data]="tableData"
+  [reloadData]="reloadData"
+  [editable]="false"
+  [addOption]="false"
+  [deleteOption]="false"
+  [customAdd]="openModal"
+></editable-table>
+<app-create-update-modal
+[visible]="modalVisible"
+[handleSave]="saveData"
+[handleClose]="closeModal"
+></app-create-update-modal>

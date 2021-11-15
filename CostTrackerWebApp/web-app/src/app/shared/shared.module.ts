@@ -13,15 +13,15 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { CreateUpdateComponent } from './create-update/create-update.component';
 
 @NgModule({
-  declarations: [EditableTableComponent],
+  declarations: [EditableTableComponent, CreateUpdateComponent],
   imports: [
     CommonModule,
     NzGridModule,
@@ -38,12 +38,12 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzDividerModule,
     NzButtonModule,
     NzToolTipModule,
-    NzMessageModule,
     NzTableModule,
     NzSpaceModule,
     NzDropDownModule,
     NzSwitchModule,
     NzPopconfirmModule,
+    NzDatePickerModule,
   ],
   exports: [
     CommonModule,
@@ -61,7 +61,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzDividerModule,
     NzButtonModule,
     NzToolTipModule,
-    NzMessageModule,
+    NzDatePickerModule,
     EditableTableComponent,
   ],
 })
