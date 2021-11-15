@@ -1,0 +1,297 @@
+<nz-table
+  #editRowTable
+  nzBordered
+  [nzData]="listOfDisplayData"
+  nzTableLayout="fixed"
+  [nzTitle]="customTitle"
+  [nzLoading]="loading"
+  nzSize="small"
+>
+  <thead>
+    <tr>
+      <th
+        *ngFor="let column of columns; index as i"
+        [nzCustomFilter]="column.filterType === 'input'"
+        [nzFilters]="column.listOfFilter"
+        [nzFilterFn]="column.filterFn"
+        [nzFilterMultiple]="column.filterMultiple"
+        [nzSortOrder]="column.sortOrder"
+        [nzSortFn]="column.sortFn"
+        [nzSortPriority]="column.sortPriority"
+        [nzWidth]="column.width"
+      >
+        {{ column.title }}
+        <nz-filter-trigger
+          *ngIf="column.filterType === 'input'"
+          [(nzVisible)]="visible[i]"
+          [nzActive]="searchValues[i].length > 0"
+          [nzDropdownMenu]="menu"
+        >
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th *ngIf="editable || editCache.edit || actionTemplates" nzWidth="120px">
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let data of editRowTable.data"
+    >
+      <ng-container
+        *ngIf="!(editCache.edit && data.id == editCache.id); else editTemplate"
+      >
+        <td
+          *ngFor="let column of columns"
+        >
+          <ng-container [ngSwitch]="column.dataType">
+            <ng-container *ngSwitchCase="'date'">
+              {{(data[column.dataIndex]
+                | date
+                  : (column.dateFormat
+                      ? column.dateFormat
+                      : "MMM dd, yyyy"))}}
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              {{
+                _.get(data, column.dataIndex)
+              }}
+            </ng-container>
+          </ng-container>
+        </td>
+        <td
+          *ngIf="editable || actionTemplates"
+        >
+          <div
+            nz-row
+            [nzJustify]="
+              deleteOption || actionTemplates ? 'space-around' : 'center'
+            "
+          >
+          <div nz-col *ngFor="let actionTemplate of actionTemplates">
+            <ng-container
+              *ngTemplateOutlet="actionTemplate; context: { data: data }"
+            ></ng-container>
+          </div>
+            <div nz-col *ngIf="editable">
+              <a
+                nz-tooltip
+                nzTooltipTitle="
+                  Update
+                "
+                (click)="startEdit(data.id)"
+              >
+                <i nz-icon nzType="edit" nzTheme="fill"></i
+              ></a>
+            </div>
+            <div nz-col *ngIf="deleteOption">
+              <a
+                nz-tooltip
+                nzTooltipTitle="
+                  Delete
+                "
+                nz-popconfirm
+                nzTitle="Are you sure?"
+                (nzOnConfirm)="deleteData(data.id)"
+              >
+                <i nz-icon nzType="delete" nzTheme="fill"></i>
+              </a>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-template #editTemplate>
+        <td *ngFor="let column of columns">
+          <ng-container
+            *ngIf="column.editable || editCache.id == '0'; else notEditable"
+          >
+            <ng-container [ngSwitch]="column.dataType">
+              <ng-container *ngSwitchCase="'number'">
+                <nz-input-number
+                  [disabled]="!column.editable"
+                  ngDefaultControl
+                  [(ngModel)]="editCache.data[column.dataIndex]"
+                  [nzMax]="column.max"
+                  [nzMin]="column.min"
+                >
+                </nz-input-number>
+              </ng-container>
+              <ng-container *ngSwitchCase="'bool'">
+                <nz-switch
+                  [nzDisabled]="!column.editable"
+                  [(ngModel)]="editCache.data[column.dataIndex]"
+                >
+                </nz-switch>
+              </ng-container>
+              <ng-container *ngSwitchCase="'option'">
+                <nz-select
+                  ngDefaultControl
+                  [nzDisabled]="!column.editable"
+                  (ngModelChange)="
+                    column.onOptionChange && column.onOptionChange($event)
+                  "
+                  [nzLoading]="column.loading"
+                  [(ngModel)]="editCache.data[column.dataIndex]"
+                  nzSize="default"
+                >
+                  <nz-option
+                    *ngFor="let option of column.options"
+                    [nzLabel]="option.label"
+                    [nzValue]="option.value"
+                  >
+                  </nz-option>
+                </nz-select>
+              </ng-container>
+              <ng-container *ngSwitchCase="'date'">
+                <nz-date-picker
+                  ngDefaultControl
+                  [nzDisabled]="!column.editable"
+                  [(ngModel)]="editCache.data[column.dataIndex]"
+                  [nzDisabledDate]="column.disabledDate"
+                >
+                </nz-date-picker>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <input
+                  [disabled]="!column.editable"
+                  type="text"
+                  nz-input
+                  [(ngModel)]="editCache.data[column.dataIndex]"
+                />
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-template #notEditable>
+            <ng-container [ngSwitch]="column.dataType">
+              <ng-container *ngSwitchCase="'bool'">
+                <nz-switch
+                  disabled
+                  [(ngModel)]="editCache.data[column.dataIndex]"
+                >
+                </nz-switch>
+              </ng-container>
+              <ng-container *ngSwitchCase="'date'">
+                <span>
+                  {{
+                    editCache.data[column.dataIndex]
+                      | date
+                        : (column.dateFormat
+                            ? column.dateFormat
+                            : "MMM dd, yyyy")
+                  }}
+                </span>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <span>
+                  {{ editCache.data[column.dataIndex] }}
+                </span>
+              </ng-container>
+            </ng-container>
+          </ng-template>
+        </td>
+        <td #editableRow>
+          <div nz-row nzJustify="space-around">
+            <div nz-col>
+              <a
+                nz-tooltip
+                nzTooltipTitle="Save"
+                (click)="saveEdit(data.id)"
+                class="save"
+                ><i nz-icon nzType="save" nzTheme="fill"></i
+              ></a>
+            </div>
+            <div nz-col>
+              <a
+                nz-popconfirm
+                [nzPopconfirmVisible]="nextPage !== 0"
+                nzTitle="Are you sure?"
+                nz-tooltip
+                nzTooltipTitle="Cancel"
+                (nzOnConfirm)="cancelEdit(data.id)"
+                ><i nz-icon nzType="stop"></i
+              ></a>
+            </div>
+          </div>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input
+        type="text"
+        nz-input
+        placeholder="Search"
+        [(ngModel)]="searchValues[visible.indexOf(true)]"
+      />
+      <button
+        nz-button
+        nzSize="small"
+        nzType="primary"
+        (click)="search()"
+        class="search-button"
+      >
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+<ng-template #customTitle>
+  <div nz-row nzJustify="space-between">
+    <div nz-col>
+      <h4 nz-typography>{{ title }}</h4>
+    </div>
+    <div nz-col>
+      <nz-space>
+        <div *nzSpaceItem >
+          <button
+          *ngIf="customAdd"
+            nz-tooltip
+            nzTooltipTitle="Add new"
+            nzTooltipPlacement="top"
+            nz-button
+            nzType="primary"
+            nzShape="circle"
+            (click)="customAdd()"
+          >
+            <i nz-icon nzType="plus" nzTheme="outline"></i>
+          </button>
+        </div>
+        <div *nzSpaceItem >
+          <button
+          *ngIf="addOption"
+            nz-tooltip
+            [nzTooltipVisible]="editCache.edit && editCache.id === '0'"
+            nzTooltipTitle="Add new"
+            nzTooltipPlacement="top"
+            nz-button
+            nzType="primary"
+            nzShape="circle"
+            (click)="addRow()"
+            [disabled]="editCache.edit"
+          >
+            <i nz-icon nzType="plus" nzTheme="outline"></i>
+          </button>
+        </div>
+        <div *nzSpaceItem >
+          <button
+          *ngIf="reloadData"
+            nz-tooltip
+            nzTooltipTitle="Reload data"
+            nzTooltipPlacement="top"
+            nz-button
+            nzType="primary"
+            nzShape="circle"
+            (click)="reloadData()"
+          >
+            <i nz-icon nzType="reload" nzTheme="outline"></i>
+          </button>
+        </div>
+      </nz-space>
+    </div>
+  </div>
+</ng-template>

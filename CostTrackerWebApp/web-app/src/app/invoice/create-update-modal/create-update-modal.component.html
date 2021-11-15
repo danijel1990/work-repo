@@ -1,0 +1,70 @@
+<nz-modal
+  [nzVisible]="visible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+<ng-container *nzModalContent>
+  <form nz-form [formGroup]="form">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" ngFor="description">Description
+      </nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input nz-input formControlName="description" type="text" placeholder="Description" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" ngFor="invoiceDate">Invoice date
+      </nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-date-picker formControlName="invoiceDate" placeholder="Invoice date"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" ngFor="supplierId">Supplier
+      </nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-select
+            nzShowSearch
+            formControlName="supplierId"
+            nzPlaceHolder="Supplier">
+          >
+            <nz-option
+              *ngFor="let supplier of supplierOptions"
+              nzLabel="{{ supplier.name }}"
+              nzValue="{{ supplier.id }}"
+            ></nz-option>
+          </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <ng-container formArrayName="materials">
+      <nz-form-item *ngFor="let material of materials.controls; let i = index">
+              <nz-form-label [nzSpan]="6" ngFor="materials">Materials
+              </nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <nz-select
+                  nzShowSearch
+                  formControlName="material"
+                  nzPlaceHolder="Materials">
+                >
+                  <nz-option
+                    *ngFor="let option of materialOptions"
+                    nzLabel="{{ option.name }}"
+                    nzValue="{{ option.id }}"
+                  ></nz-option>
+                </nz-select>
+            </nz-form-control>
+            <nz-form-control [nzSpan]="12">
+              <nz-input-number formControlName="material.quantity" nzPlaceHolder="Quantity"></nz-input-number>
+            </nz-form-control>
+        </nz-form-item>
+  </ng-container>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" ngFor="totalPrice">Total price
+      </nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-input-number [nzDisabled]="true" formControlName="totalPrice" nzPlaceHolder="Total price"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-container>
+</nz-modal>
