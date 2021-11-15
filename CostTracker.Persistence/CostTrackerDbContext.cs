@@ -1,11 +1,12 @@
 ﻿using CostTracker.Application.Context;
 using CostTracker.Domain;
+using CostTracker.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace CostTracker.Persistence
 {
-    public class CostTrackerDbContext : DbContext, IConfigurationDbContext
+    public class CostTrackerDbContext : DbContext, ICostTrackerDbContext
     {
         public DbSet<InvoiceMaterial> InvoiceMaterial { get; set; }
 

@@ -1,9 +1,6 @@
-﻿using CostTracker.Domain;
+﻿using CostTracker.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CostTracker.Persistence.EntityConfiguration
 {

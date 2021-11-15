@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CostTracker.Domain
+namespace CostTracker.Domain.Models
 {
     public class Invoice : BaseEntity
     {

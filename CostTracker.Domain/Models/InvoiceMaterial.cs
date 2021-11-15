@@ -1,4 +1,4 @@
-﻿namespace CostTracker.Domain
+﻿namespace CostTracker.Domain.Models
 {
     public class InvoiceMaterial
     {

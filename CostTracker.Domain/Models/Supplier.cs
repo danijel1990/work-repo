@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CostTracker.Domain
+namespace CostTracker.Domain.Models
 {
     public class Supplier : BaseEntity
     {

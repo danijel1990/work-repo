@@ -1,9 +1,10 @@
 ﻿using CostTracker.Domain;
+using CostTracker.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CostTracker.Application.Context
 {
-    public interface IConfigurationDbContext
+    public interface ICostTrackerDbContext
     {
         DbSet<InvoiceMaterial> InvoiceMaterial { get; set; }
 
