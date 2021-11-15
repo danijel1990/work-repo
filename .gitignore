@@ -3,3 +3,16 @@
 ################################################################################
 
 /.vs/CostTrackerAPI
+/CostTracker.Application/bin/Debug/netstandard2.0
+/CostTracker.Application/obj/Debug/netstandard2.0
+/CostTracker.Common/bin/Debug/netstandard2.0
+/CostTracker.Common/obj/Debug/netstandard2.0
+/CostTracker.Domain/bin/Debug/netstandard2.0
+/CostTracker.Domain/obj/Debug/netstandard2.0
+/CostTracker.Infrastructure/bin/Debug/netstandard2.0
+/CostTracker.Infrastructure/obj/Debug/netstandard2.0
+/CostTracker.Persistence/bin/Debug/netstandard2.0
+/CostTracker.Infrastructure/obj/project.nuget.cache
+/CostTracker.Persistence/obj/Debug/netstandard2.0
+/CostTrackerAPI/bin/Debug/netcoreapp3.1
+/CostTrackerAPI/obj/Debug

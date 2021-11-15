@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "q+yerayi5sd7Hxzj5QKkkAlzXlA6JT+Hosl24riDuJCIR3Mh1AF4Gy1OrxzEwk/so46VmpYxeSoYis7IJkW1Mg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Danijel\\Desktop\\ComData test\\CostTrackerAPI\\CostTracker.Domain\\CostTracker.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
