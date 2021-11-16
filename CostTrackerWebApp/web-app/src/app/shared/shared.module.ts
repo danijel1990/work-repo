@@ -44,6 +44,7 @@ import { CreateUpdateComponent } from './create-update/create-update.component';
     NzSwitchModule,
     NzPopconfirmModule,
     NzDatePickerModule,
+    NzSwitchModule,
   ],
   exports: [
     CommonModule,
@@ -62,6 +63,7 @@ import { CreateUpdateComponent } from './create-update/create-update.component';
     NzButtonModule,
     NzToolTipModule,
     NzDatePickerModule,
+    NzSwitchModule,
     EditableTableComponent,
   ],
 })

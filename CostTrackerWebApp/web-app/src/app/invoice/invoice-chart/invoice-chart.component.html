@@ -1,0 +1,15 @@
+<div nz-row>
+  <div class="chartContainer" nz-col [nzSpan]="24">
+    <canvas
+      id="canvas"
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    >
+    </canvas>
+  </div>
+</div>

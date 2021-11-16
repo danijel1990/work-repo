@@ -24,9 +24,21 @@ export class CreateUpdateModalComponent implements OnInit {
   form: FormGroup;
   supplierOptions: Array<SupplierModel> = [];
   materialOptions: Array<MaterialModel> = [];
+  emptyMaterialForm = this.fb.group({
+    material: ['', Validators.required],
+    quantity: ['', Validators.required],
+  });
 
   get materials() {
     return this.form.controls['materials'] as FormArray;
+  }
+
+  addMaterial(): void {
+    this.materials.push(this.emptyMaterialForm);
+  }
+
+  removeMaterial(index: number): void {
+    this.materials.removeAt(index);
   }
 
   handleOk(): void {
@@ -47,7 +59,7 @@ export class CreateUpdateModalComponent implements OnInit {
       invoiceDate: ['', Validators.required],
       supplierId: ['', Validators.required],
       totalPrice: ['', Validators.required],
-      materials: this.fb.array([]),
+      materials: this.fb.array([this.emptyMaterialForm]),
     });
   }
 

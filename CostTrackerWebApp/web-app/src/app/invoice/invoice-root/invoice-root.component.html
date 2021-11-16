@@ -1,4 +1,6 @@
+<nz-switch class="paddingBot" [(ngModel)]="showTable" nzCheckedChildren="Table" nzUnCheckedChildren="Chart"></nz-switch>
 <editable-table
+  *ngIf="showTable"
   [title]="title"
   [columns]="columns"
   [loading]="loading"
@@ -9,6 +11,7 @@
   [deleteOption]="false"
   [customAdd]="openModal"
 ></editable-table>
+<app-invoice-chart *ngIf="!showTable"></app-invoice-chart>
 <app-create-update-modal
 [visible]="modalVisible"
 [handleSave]="saveData"

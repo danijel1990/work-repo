@@ -35,6 +35,7 @@ export class InvoiceRootComponent
   ];
   modalVisible: boolean = false;
   selectedInvoice: InvoiceModel = null;
+  showTable: boolean = true;
 
   constructor(invoiceService: InvoiceService) {
     super(invoiceService);

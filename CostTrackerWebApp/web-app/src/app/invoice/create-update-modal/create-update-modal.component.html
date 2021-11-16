@@ -36,11 +36,20 @@
           </nz-select>
       </nz-form-control>
     </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" ngFor="totalPrice">Total price
+      </nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-input-number [nzDisabled]="true" formControlName="totalPrice" nzPlaceHolder="Total price"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
     <ng-container formArrayName="materials">
-      <nz-form-item *ngFor="let material of materials.controls; let i = index">
-              <nz-form-label [nzSpan]="6" ngFor="materials">Materials
+      <nz-form-item *ngFor="let materialForm of materials.controls; let i = index" [formGroupName]="i">
+        <div nz-col [nzSpan]="2"><button *ngIf="i === 0" nz-button nzType="primary" nzShape="circle" (click)="addMaterial()"><i nz-icon nzType="plus"></i></button></div>
+              <nz-form-label [nzSpan]="4" ngFor="materials">Material {{i + 1}}
               </nz-form-label>
-            <nz-form-control [nzSpan]="12">
+            <nz-form-control [nzSpan]="8">
               <nz-select
                   nzShowSearch
                   formControlName="material"
@@ -53,18 +62,13 @@
                   ></nz-option>
                 </nz-select>
             </nz-form-control>
-            <nz-form-control [nzSpan]="12">
-              <nz-input-number formControlName="material.quantity" nzPlaceHolder="Quantity"></nz-input-number>
+            <nz-form-control [nzSpan]="8" [nzOffset]="2">
+              <nz-input-number formControlName="quantity" nzPlaceHolder="Quantity"></nz-input-number>
             </nz-form-control>
+            <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="delete" (click)="removeMaterial(i)"></i></button>
         </nz-form-item>
   </ng-container>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="6" ngFor="totalPrice">Total price
-      </nz-form-label>
-      <nz-form-control [nzSpan]="12">
-        <nz-input-number [nzDisabled]="true" formControlName="totalPrice" nzPlaceHolder="Total price"></nz-input-number>
-      </nz-form-control>
-    </nz-form-item>
+
   </form>
 </ng-container>
 </nz-modal>
