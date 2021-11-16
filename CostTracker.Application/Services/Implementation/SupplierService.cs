@@ -8,7 +8,7 @@ namespace CostTracker.Application.Services.Implementation
 {
     public class SupplierService : ISupplierService
     {
-        public Supplier Insert(SupplierModel supplierModel)
+        public Supplier InsertSupplier(SupplierModel supplierModel)
         {
             throw new NotImplementedException();
         }

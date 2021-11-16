@@ -21,11 +21,11 @@ namespace CostTrackerAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] SupplierModel model)
+        public ActionResult Insert([FromBody] SupplierModel model)
         {
-            var result = _supplierService.Insert(_mapper.Map<SupplierModel>(model));
+            var result = _supplierService.InsertSupplier(_mapper.Map<SupplierModel>(model));
 
-            return CreatedAtAction(nameof(Create), result);
+            return CreatedAtAction(nameof(Insert), result);
         }
     }
 }
