@@ -2,6 +2,8 @@
 using CostTracker.Application.IRepositories;
 using CostTracker.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CostTracker.Infrastructure.Repositories
 {
@@ -17,6 +19,16 @@ namespace CostTracker.Infrastructure.Repositories
         public void Add(Material material)
         {
             _context.Set<Material>().Add(material);
+        }
+
+        public void Update(Material invoice)
+        {
+            _context.Set<Material>().Update(invoice);
+        }
+
+        public IEnumerable<Material> GetAll()
+        {
+            return _context.Set<Material>().ToList();
         }
     }
 }

@@ -20,18 +20,26 @@ namespace CostTrackerAPI.Controllers
         }
   
         [HttpGet("invoice")]
-        public ActionResult<Invoice> GetAllInvoiceData(InvoiceModel invoice)
+        public ActionResult<Invoice> Get(InvoiceModel invoice)
         {
             var data = _invoiceService.GetAllInvoiceData(invoice);
             return data;
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         public ActionResult Insert([FromBody] InvoiceModel model)
         {
             var result = _invoiceService.InsertInvoiceData(_mapper.Map<InvoiceModel>(model));
 
-            return CreatedAtAction(nameof(Insert), result);
+            return Ok(result);
+        }
+
+        [HttpPost("id")]
+        public ActionResult Update([FromBody] InvoiceModel model)
+        {
+            var result = _invoiceService.UpdateInvoiceData(_mapper.Map<InvoiceModel>(model));
+
+            return Ok(result);
         }
     }
 }

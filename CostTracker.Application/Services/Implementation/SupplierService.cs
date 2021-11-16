@@ -5,6 +5,7 @@ using CostTracker.Application.Services.Interfaces;
 using CostTracker.Domain;
 using CostTracker.Domain.Models;
 using System;
+using System.Collections.Generic;
 
 namespace CostTracker.Application.Services.Implementation
 {
@@ -23,10 +24,25 @@ namespace CostTracker.Application.Services.Implementation
         {
             var newSupplier = _mapper.Map<Supplier>(supplierModel);
             _uow.Supplier.Add(newSupplier);
+            _uow.Complete();
+
+            return newSupplier.Id;
+        }
+
+        public int UpdateSupplier(SupplierModel supplierModel)
+        {
+            var newSupplier = _mapper.Map<Supplier>(supplierModel);
             _uow.Supplier.Update(newSupplier);
             _uow.Complete();
 
             return newSupplier.Id;
+        }
+
+        public Supplier GetSupplierData(SupplierModel supplierModel)
+        {
+            var suppliers = _uow.Supplier.GetAll();
+
+            return (Supplier)_mapper.Map<IList<SupplierModel>>(suppliers);
         }
     }
 }

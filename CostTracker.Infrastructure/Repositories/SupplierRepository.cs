@@ -2,6 +2,8 @@
 using CostTracker.Application.IRepositories;
 using CostTracker.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CostTracker.Infrastructure.Repositories
 {
@@ -18,5 +20,16 @@ namespace CostTracker.Infrastructure.Repositories
         {
             _context.Set<Supplier>().Add(supplier);
         }
+
+        public void Update(Supplier invoice)
+        {
+            _context.Set<Supplier>().Update(invoice);
+        }
+
+        public IEnumerable<Supplier> GetAll()
+        {
+            return _context.Set<Supplier>().ToList();
+        }
+
     }
 }

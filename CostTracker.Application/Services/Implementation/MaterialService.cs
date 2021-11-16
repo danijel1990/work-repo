@@ -5,6 +5,7 @@ using CostTracker.Application.Services.Interfaces;
 using CostTracker.Domain;
 using CostTracker.Domain.Models;
 using System;
+using System.Collections.Generic;
 
 namespace CostTracker.Application.Services.Implementation
 {
@@ -23,10 +24,25 @@ namespace CostTracker.Application.Services.Implementation
         {
             var newMaterial = _mapper.Map<Material>(materialModel);
             _uow.Material.Add(newMaterial);
+            _uow.Complete();
+
+            return newMaterial.Id;
+        }
+
+        public int UpdateMaterial(MaterialModel materialModel)
+        {
+            var newMaterial = _mapper.Map<Material>(materialModel);
             _uow.Material.Update(newMaterial);
             _uow.Complete();
 
             return newMaterial.Id;
+        }
+
+        public Material GetMaterialData(MaterialModel materialModel)
+        {
+            var materials = _uow.Material.GetAll();
+
+            return (Material)_mapper.Map<IList<InvoiceMaterialQueryModel>>(materials);
         }
     }
 }

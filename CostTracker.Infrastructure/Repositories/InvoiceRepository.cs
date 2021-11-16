@@ -16,6 +16,16 @@ namespace CostTracker.Infrastructure.Repositories
         {
         }
 
+        public void Add(Invoice invoice)
+        {
+            _context.Set<Invoice>().Add(invoice);
+        }
+
+        public void Update(Invoice invoice)
+        {
+            _context.Set<Invoice>().Update(invoice);
+        }
+
         public IEnumerable<Invoice> GetAll()
         {
             return _context.Set<Invoice>().ToList();

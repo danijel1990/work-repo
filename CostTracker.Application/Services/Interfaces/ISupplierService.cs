@@ -6,5 +6,7 @@ namespace CostTracker.Application.Services.Interfaces
     public interface ISupplierService
     {
         int InsertSupplier(SupplierModel supplierModel);
+        int UpdateSupplier(SupplierModel supplierModel);
+        Supplier GetSupplierData(SupplierModel supplierModel);
     }
 }

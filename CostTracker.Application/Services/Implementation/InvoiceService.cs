@@ -23,6 +23,14 @@ namespace CostTracker.Application.Services.Implementation
         {
             var newInvoice = _mapper.Map<Invoice>(invoiceModel);
             _uow.Invoice.Add(newInvoice);
+            _uow.Complete();
+
+            return newInvoice.Id;
+        }
+
+        public int UpdateInvoiceData(InvoiceModel invoiceModel)
+        {
+            var newInvoice = _mapper.Map<Invoice>(invoiceModel);
             _uow.Invoice.Update(newInvoice);
             _uow.Complete();
 
