@@ -2,8 +2,8 @@
 
 namespace CostTracker.Application.IRepositories
 {
-    public interface IMaterialRepository
+    public interface IMaterialRepository: IRepository<Material>
     {
-        void Add(Material material);
+
     }
 }

@@ -2,8 +2,8 @@
 
 namespace CostTracker.Application.IRepositories
 {
-    public interface ISupplierRepository
+    public interface ISupplierRepository: IRepository<Supplier>
     {
-        void Add(Supplier supplier);
+
     }
 }

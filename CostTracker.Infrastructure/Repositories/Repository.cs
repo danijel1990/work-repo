@@ -1,7 +1,5 @@
 ﻿using CostTracker.Application.IRepositories;
-using CostTracker.Domain;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,6 +17,11 @@ namespace CostTracker.Infrastructure.Repositories
         public void Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
+        }
+
+        public void Update(TEntity entity)
+        {
+            _context.Set<TEntity>().Update(entity);
         }
 
         public IEnumerable<TEntity> GetAll()

@@ -25,7 +25,7 @@ namespace CostTrackerAPI.Controllers
         {
             var result = _supplierService.InsertSupplier(_mapper.Map<SupplierModel>(model));
 
-            return CreatedAtAction(nameof(Insert), result);
+            return Ok(result);
         }
     }
 }

@@ -19,13 +19,14 @@ namespace CostTracker.Application.Services.Implementation
             _mapper = mapper;
         }
 
-        public Material InsertMaterial(MaterialModel materialModel)
+        public int InsertMaterial(MaterialModel materialModel)
         {
             var newMaterial = _mapper.Map<Material>(materialModel);
             _uow.Material.Add(newMaterial);
+            _uow.Material.Update(newMaterial);
             _uow.Complete();
 
-            return newMaterial;
+            return newMaterial.Id;
         }
     }
 }

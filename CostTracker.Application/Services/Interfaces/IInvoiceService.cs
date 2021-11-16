@@ -6,6 +6,7 @@ namespace CostTracker.Application.Services.Interfaces
 {
     public interface IInvoiceService
     {
+        int InsertInvoiceData(InvoiceModel invoiceModel);
         Invoice GetAllInvoiceData(InvoiceModel invoiceModel);
     }
 }

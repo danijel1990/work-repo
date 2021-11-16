@@ -19,13 +19,14 @@ namespace CostTracker.Application.Services.Implementation
             _mapper = mapper;
         }
 
-        public Supplier InsertSupplier(SupplierModel supplierModel)
+        public int InsertSupplier(SupplierModel supplierModel)
         {
             var newSupplier = _mapper.Map<Supplier>(supplierModel);
             _uow.Supplier.Add(newSupplier);
+            _uow.Supplier.Update(newSupplier);
             _uow.Complete();
 
-            return newSupplier;
+            return newSupplier.Id;
         }
     }
 }
