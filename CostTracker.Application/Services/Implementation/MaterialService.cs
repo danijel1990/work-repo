@@ -1,4 +1,6 @@
-﻿using CostTracker.Application.Models;
+﻿using AutoMapper;
+using CostTracker.Application.IUOW;
+using CostTracker.Application.Models;
 using CostTracker.Application.Services.Interfaces;
 using CostTracker.Domain;
 using CostTracker.Domain.Models;
@@ -8,9 +10,22 @@ namespace CostTracker.Application.Services.Implementation
 {
     public class MaterialService : IMaterialService
     {
+        public readonly IUow _uow;
+        private readonly IMapper _mapper;
+
+        public MaterialService(IUow uow, IMapper mapper)
+        {
+            _uow = uow;
+            _mapper = mapper;
+        }
+
         public Material InsertMaterial(MaterialModel materialModel)
         {
-            throw new NotImplementedException();
+            var newMaterial = _mapper.Map<Material>(materialModel);
+            _uow.Material.Add(newMaterial);
+            _uow.Complete();
+
+            return newMaterial;
         }
     }
 }

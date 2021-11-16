@@ -1,4 +1,6 @@
-﻿using CostTracker.Application.Models;
+﻿using AutoMapper;
+using CostTracker.Application.IUOW;
+using CostTracker.Application.Models;
 using CostTracker.Application.Services.Interfaces;
 using CostTracker.Domain;
 using CostTracker.Domain.Models;
@@ -8,9 +10,22 @@ namespace CostTracker.Application.Services.Implementation
 {
     public class SupplierService : ISupplierService
     {
+        public readonly IUow _uow;
+        private readonly IMapper _mapper;
+
+        public SupplierService(IUow uow, IMapper mapper)
+        {
+            _uow = uow;
+            _mapper = mapper;
+        }
+
         public Supplier InsertSupplier(SupplierModel supplierModel)
         {
-            throw new NotImplementedException();
+            var newSupplier = _mapper.Map<Supplier>(supplierModel);
+            _uow.Supplier.Add(newSupplier);
+            _uow.Complete();
+
+            return newSupplier;
         }
     }
 }
