@@ -14,9 +14,9 @@ namespace CostTracker.Infrastructure.Repositories
         {
         }
 
-        public Material Get<T>(T key)
+        public void Add(Material material)
         {
-            return Get(key, CostTrackerDbContext.Material);
+            _context.Set<Material>().Add(material);
         }
     }
 }

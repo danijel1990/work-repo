@@ -8,7 +8,7 @@ namespace CostTracker.Application.Services.Implementation
 {
     public class MaterialService : IMaterialService
     {
-        public Material Insert(MaterialModel materialModel)
+        public Material InsertMaterial(MaterialModel materialModel)
         {
             throw new NotImplementedException();
         }

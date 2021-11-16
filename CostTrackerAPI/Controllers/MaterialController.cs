@@ -22,11 +22,11 @@ namespace CostTrackerAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] MaterialModel model)
+        public ActionResult Insert([FromBody] MaterialModel model)
         {
-            var result = _materialService.Insert(_mapper.Map<MaterialModel>(model));
+            var result = _materialService.InsertMaterial(_mapper.Map<MaterialModel>(model));
 
-            return CreatedAtAction(nameof(Create), result);
+            return CreatedAtAction(nameof(Insert), result);
         }
     }
 }

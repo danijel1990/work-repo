@@ -6,6 +6,6 @@ namespace CostTracker.Application.Services.Interfaces
 {
     public interface IMaterialService
     {
-        Material Insert(MaterialModel materialModel);
+        Material InsertMaterial(MaterialModel materialModel);
     }
 }

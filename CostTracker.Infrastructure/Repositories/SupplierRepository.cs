@@ -14,9 +14,9 @@ namespace CostTracker.Infrastructure.Repositories
         {
         }
 
-        public Supplier Get<T>(T key)
+        public void Add(Supplier supplier)
         {
-            return Get(key, CostTrackerDbContext.Supplier);
+            _context.Set<Supplier>().Add(supplier);
         }
     }
 }
