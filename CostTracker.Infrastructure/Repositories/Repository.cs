@@ -14,6 +14,16 @@ namespace CostTracker.Infrastructure.Repositories
             _context = context;
         }
 
+        public IEnumerable<TEntity> GetAll()
+        {
+            return _context.Set<TEntity>().ToList();
+        }
+
+        public TEntity Get(int id)
+        {
+            return _context.Set<TEntity>().Find(id);
+        }
+
         public void Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
@@ -22,11 +32,6 @@ namespace CostTracker.Infrastructure.Repositories
         public void Update(TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);
-        }
-
-        public IEnumerable<TEntity> GetAll()
-        {
-            return _context.Set<TEntity>().ToList();
         }
 	}
 }

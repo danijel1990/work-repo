@@ -8,7 +8,11 @@ namespace CostTracker.Application.Mappings
     {
         public InvoiceMaterialModels()
         {
-            CreateMap<InvoiceMaterial, InvoiceMaterialModel>();
+            CreateMap<InvoiceMaterial, InvoiceMaterialQueryModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.MaterialId))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Material.Name));
+            CreateMap<InvoiceMaterialModel, InvoiceMaterial>()
+                .ForMember(dest => dest.MaterialId, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

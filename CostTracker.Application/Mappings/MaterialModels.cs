@@ -9,6 +9,7 @@ namespace CostTracker.Application.Mappings
         public MaterialModels()
         {
             CreateMap<Material, MaterialModel>();
+            CreateMap<MaterialModel, Material>();
         }
     }
 }

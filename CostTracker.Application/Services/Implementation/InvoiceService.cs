@@ -3,7 +3,6 @@ using CostTracker.Application.IUOW;
 using CostTracker.Application.Models;
 using CostTracker.Application.Services.Interfaces;
 using CostTracker.Domain.Models;
-using System;
 using System.Collections.Generic;
 
 namespace CostTracker.Application.Services.Implementation
@@ -19,6 +18,13 @@ namespace CostTracker.Application.Services.Implementation
             _mapper = mapper;
         }
 
+        public IEnumerable<InvoiceQueryModel> GetAllInvoiceData()
+        {
+            var invoices = _uow.Invoice.GetAllWithDetails();
+
+            return _mapper.Map<IEnumerable<InvoiceQueryModel>>(invoices);
+        }
+
         public int InsertInvoiceData(InvoiceModel invoiceModel)
         {
             var newInvoice = _mapper.Map<Invoice>(invoiceModel);
@@ -28,20 +34,15 @@ namespace CostTracker.Application.Services.Implementation
             return newInvoice.Id;
         }
 
-        public int UpdateInvoiceData(InvoiceModel invoiceModel)
+        public void UpdateInvoiceData(int id, InvoiceModel invoiceModel)
         {
-            var newInvoice = _mapper.Map<Invoice>(invoiceModel);
-            _uow.Invoice.Update(newInvoice);
+            var invoice = _uow.Invoice.GetWithDetails(id);
+            invoice.Description = invoiceModel.Description;
+            invoice.InvoiceDate = invoiceModel.InvoiceDate;
+            invoice.SupplierId = invoiceModel.SupplierId;
+
+            invoice.InvoiceMaterials = _mapper.Map<ICollection<InvoiceMaterial>>(invoiceModel.InvoiceMaterials);
             _uow.Complete();
-
-            return newInvoice.Id;
-        }
-
-        public Invoice GetAllInvoiceData(InvoiceModel invoiceModel)
-        {
-            var invoices = _uow.Invoice.GetAll();
-
-            return (Invoice)_mapper.Map<IList<InvoiceQueryModel>>(invoices);
         }
     }
 }

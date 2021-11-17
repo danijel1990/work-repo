@@ -1,12 +1,12 @@
 ﻿using CostTracker.Application.Models;
-using CostTracker.Domain.Models;
+using System.Collections.Generic;
 
 namespace CostTracker.Application.Services.Interfaces
 {
     public interface ISupplierService
     {
         int InsertSupplier(SupplierModel supplierModel);
-        int UpdateSupplier(SupplierModel supplierModel);
-        Supplier GetSupplierData(SupplierModel supplierModel);
+        void UpdateSupplier(int id, SupplierModel supplierModel);
+        IEnumerable<SupplierModel> GetSupplierData();
     }
 }

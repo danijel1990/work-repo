@@ -1,13 +1,12 @@
 ﻿using CostTracker.Application.Models;
-using CostTracker.Domain;
-using CostTracker.Domain.Models;
+using System.Collections.Generic;
 
 namespace CostTracker.Application.Services.Interfaces
 {
     public interface IInvoiceService
     {
         int InsertInvoiceData(InvoiceModel invoiceModel);
-        int UpdateInvoiceData(InvoiceModel invoiceModel);
-        Invoice GetAllInvoiceData(InvoiceModel invoiceModel);
+        void UpdateInvoiceData(int id, InvoiceModel invoiceModel);
+        IEnumerable<InvoiceQueryModel> GetAllInvoiceData();
     }
 }

@@ -9,6 +9,7 @@ namespace CostTracker.Application.Mappings
         public SupplierModels()
         {
             CreateMap<Supplier, SupplierModel>();
+            CreateMap<SupplierModel, Supplier>()
         }
     }
 }

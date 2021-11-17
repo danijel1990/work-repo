@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CostTracker.Application.Models;
+﻿using CostTracker.Application.Models;
 using CostTracker.Application.Services.Interfaces;
 using CostTracker.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,33 +10,31 @@ namespace CostTrackerAPI.Controllers
     public class InvoiceController : ControllerBase
     {
         private readonly IInvoiceService _invoiceService;
-        private readonly IMapper _mapper;
 
-        public InvoiceController(IInvoiceService invoiceService, IMapper mapper)
+        public InvoiceController(IInvoiceService invoiceService)
         {
             _invoiceService = invoiceService;
-            _mapper = mapper;
         }
   
-        [HttpGet("invoice")]
-        public ActionResult<Invoice> Get(InvoiceModel invoice)
+        [HttpGet()]
+        public ActionResult<Invoice> Get()
         {
-            var data = _invoiceService.GetAllInvoiceData(invoice);
-            return data;
+            var data = _invoiceService.GetAllInvoiceData();
+            return Ok(data);
         }
 
-        [HttpPost("{id}")]
+        [HttpPost()]
         public ActionResult Insert([FromBody] InvoiceModel model)
         {
-            var result = _invoiceService.InsertInvoiceData(_mapper.Map<InvoiceModel>(model));
+            var result = _invoiceService.InsertInvoiceData(model);
 
             return Ok(result);
         }
 
-        [HttpPost("id")]
-        public ActionResult Update([FromBody] InvoiceModel model)
+        [HttpPost("{id}")]
+        public ActionResult Update([FromBody] InvoiceModel model, int id)
         {
-            var result = _invoiceService.UpdateInvoiceData(_mapper.Map<InvoiceModel>(model));
+            var result = _invoiceService.UpdateInvoiceData(id, model);
 
             return Ok(result);
         }

@@ -8,7 +8,8 @@ namespace CostTracker.Application.Mappings
     {
         public InvoiceModels()
         {
-            CreateMap<Invoice, InvoiceModel>();
+            CreateMap<Invoice, InvoiceQueryModel>();
+            CreateMap<InvoiceModel, Invoice>();
         }
     }
 }

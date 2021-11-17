@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using CostTracker.Application.Models;
+﻿using CostTracker.Application.Models;
 using CostTracker.Application.Services.Interfaces;
-using CostTracker.Domain;
 using CostTracker.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,33 +11,30 @@ namespace CostTrackerAPI.Controllers
     {
         private readonly ISupplierService _supplierService;
 
-        private readonly IMapper _mapper;
-
-        public SupplierController(ISupplierService supplierService, IMapper mapper)
+        public SupplierController(ISupplierService supplierService)
         {
             _supplierService = supplierService;
-            _mapper = mapper;
         }
 
-        [HttpGet("supplier")]
-        public ActionResult<Supplier> Get(SupplierModel supplier)
+        [HttpGet()]
+        public ActionResult<Supplier> Get()
         {
-            var data = _supplierService.GetSupplierData(supplier);
-            return data;
+            var data = _supplierService.GetSupplierData();
+            return Ok(data);
         }
 
-        [HttpPost("{id}")]
+        [HttpPost()]
         public ActionResult Insert([FromBody] SupplierModel model)
         {
-            var result = _supplierService.InsertSupplier(_mapper.Map<SupplierModel>(model));
+            var result = _supplierService.InsertSupplier(model);
 
             return Ok(result);
         }        
         
         [HttpPost("{id}")]
-        public ActionResult Update([FromBody] SupplierModel model)
+        public ActionResult Update([FromBody] SupplierModel model, int id)
         {
-            var result = _supplierService.UpdateSupplier(_mapper.Map<SupplierModel>(model));
+            var result = _supplierService.UpdateSupplier(id, model);
 
             return Ok(result);
         }

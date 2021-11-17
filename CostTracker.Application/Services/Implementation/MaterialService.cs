@@ -2,9 +2,7 @@
 using CostTracker.Application.IUOW;
 using CostTracker.Application.Models;
 using CostTracker.Application.Services.Interfaces;
-using CostTracker.Domain;
 using CostTracker.Domain.Models;
-using System;
 using System.Collections.Generic;
 
 namespace CostTracker.Application.Services.Implementation
@@ -19,6 +17,12 @@ namespace CostTracker.Application.Services.Implementation
             _uow = uow;
             _mapper = mapper;
         }
+        public IEnumerable<MaterialModel> GetMaterialData()
+        {
+            var materials = _uow.Material.GetAll();
+
+            return _mapper.Map<IEnumerable<MaterialModel>>(materials);
+        }
 
         public int InsertMaterial(MaterialModel materialModel)
         {
@@ -29,20 +33,13 @@ namespace CostTracker.Application.Services.Implementation
             return newMaterial.Id;
         }
 
-        public int UpdateMaterial(MaterialModel materialModel)
+        public void UpdateMaterial(int id, MaterialModel materialModel)
         {
-            var newMaterial = _mapper.Map<Material>(materialModel);
-            _uow.Material.Update(newMaterial);
+            var material = _uow.Material.Get(id);
+            material.Name = materialModel.Name;
+            material.Price = materialModel.Price;
+
             _uow.Complete();
-
-            return newMaterial.Id;
-        }
-
-        public Material GetMaterialData(MaterialModel materialModel)
-        {
-            var materials = _uow.Material.GetAll();
-
-            return (Material)_mapper.Map<IList<InvoiceMaterialQueryModel>>(materials);
         }
     }
 }
