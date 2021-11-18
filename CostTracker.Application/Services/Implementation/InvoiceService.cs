@@ -28,6 +28,7 @@ namespace CostTracker.Application.Services.Implementation
         public int InsertInvoiceData(InvoiceModel invoiceModel)
         {
             var newInvoice = _mapper.Map<Invoice>(invoiceModel);
+
             _uow.Invoice.Add(newInvoice);
             _uow.Complete();
 
@@ -41,7 +42,9 @@ namespace CostTracker.Application.Services.Implementation
             invoice.InvoiceDate = invoiceModel.InvoiceDate;
             invoice.SupplierId = invoiceModel.SupplierId;
 
-            invoice.InvoiceMaterials = _mapper.Map<ICollection<InvoiceMaterial>>(invoiceModel.InvoiceMaterials);
+            invoice.InvoiceMaterials.Clear();
+            invoice.InvoiceMaterials = _mapper.Map<ICollection<InvoiceMaterial>>(invoiceModel.Materials);
+
             _uow.Complete();
         }
     }

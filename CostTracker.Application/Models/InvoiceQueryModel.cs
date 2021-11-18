@@ -9,6 +9,7 @@ namespace CostTracker.Application.Models
         public string Description { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalPrice { get; set; }
+        public int SupplierId { get; set; }
         public string SupplierName { get; set; }
         public IEnumerable<InvoiceMaterialQueryModel> Materials { get; set; }
     }

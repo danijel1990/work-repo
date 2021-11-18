@@ -31,12 +31,12 @@ namespace CostTrackerAPI.Controllers
             return Ok(result);
         }        
         
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public ActionResult Update([FromBody] SupplierModel model, int id)
         {
-            var result = _supplierService.UpdateSupplier(id, model);
+            _supplierService.UpdateSupplier(id, model);
 
-            return Ok(result);
+            return Ok();
         }
     }
 }

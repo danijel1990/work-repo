@@ -7,5 +7,5 @@ export interface InvoiceModel extends BaseModel {
   supplierId: number;
   supplierName: string;
   totalPrice: number;
-  materials: InvoiceMaterialModel;
+  materials: Array<InvoiceMaterialModel>;
 }

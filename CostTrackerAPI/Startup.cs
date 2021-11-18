@@ -1,7 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using CostTracker.Application.IRepositories;
+using CostTracker.Application.IUOW;
+using CostTracker.Application.Mappings;
+using CostTracker.Application.Services.Implementation;
+using CostTracker.Application.Services.Interfaces;
+using CostTracker.Application.UOW;
+using CostTracker.Infrastructure.Repositories;
 using CostTracker.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +21,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace CostTrackerAPI
 {
@@ -28,7 +38,27 @@ namespace CostTrackerAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CostTrackerDbContext>(builder => builder.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<DbContext, CostTrackerDbContext>();
+            services.AddScoped<IMaterialService, MaterialService>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
+            services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<IUow, Uow>();
+            services.AddAutoMapper(typeof(MaterialModels));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Configuration API",
+                    Version = "v1",
+                    Description = "Configuration API Description",
+                });
+            });
+
+            services.AddCors();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,11 +79,9 @@ namespace CostTrackerAPI
                 c.SwaggerEndpoint("v1/swagger.json", "CostTracker API v1");
             });
 
-            app.UseRouting();
-
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
 
-            app.UseAuthorization();
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

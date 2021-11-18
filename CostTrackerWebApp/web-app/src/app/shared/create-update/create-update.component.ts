@@ -18,7 +18,7 @@ export class CreateUpdateComponent<T extends BaseModel> implements OnInit {
     this.reloadData();
   }
 
-  reloadData(): void {
+  reloadData = (): void => {
     this.loading = true;
     this.service.getAll().subscribe({
       next: (data) => {
@@ -29,7 +29,7 @@ export class CreateUpdateComponent<T extends BaseModel> implements OnInit {
     });
   }
 
-  handleSave(record: T): void {
+  handleSave = (record: T): void => {
     this.loading = true;
 
     this.service.update(record).subscribe({
@@ -49,7 +49,7 @@ export class CreateUpdateComponent<T extends BaseModel> implements OnInit {
     });
   }
 
-  handleAdd(record: T): void {
+  handleAdd = (record: T): void => {
     this.loading = true;
 
     this.service.create(record).subscribe({

@@ -4,7 +4,7 @@
   (nzOnOk)="handleOk()"
 >
 <ng-container *nzModalContent>
-  <form nz-form [formGroup]="form">
+  <form nz-form [formGroup]="form" (ngSubmit)="handleOk()">
     <nz-form-item>
       <nz-form-label [nzSpan]="6" ngFor="description">Description
       </nz-form-label>
@@ -26,8 +26,9 @@
         <nz-select
             nzShowSearch
             formControlName="supplierId"
-            nzPlaceHolder="Supplier">
-          >
+            nzPlaceHolder="Supplier"
+            [nzLoading]="supplierLoading"
+            >
             <nz-option
               *ngFor="let supplier of supplierOptions"
               nzLabel="{{ supplier.name }}"
@@ -43,17 +44,19 @@
         <nz-input-number [nzDisabled]="true" formControlName="totalPrice" nzPlaceHolder="Total price"></nz-input-number>
       </nz-form-control>
     </nz-form-item>
-
     <ng-container formArrayName="materials">
       <nz-form-item *ngFor="let materialForm of materials.controls; let i = index" [formGroupName]="i">
-        <div nz-col [nzSpan]="2"><button *ngIf="i === 0" nz-button nzType="primary" nzShape="circle" (click)="addMaterial()"><i nz-icon nzType="plus"></i></button></div>
+        <div nz-col [nzSpan]="2"><button *ngIf="i === 0" type="button" nz-button nzShape="circle" (click)="addMaterial()"><i nz-icon nzType="plus"></i></button></div>
               <nz-form-label [nzSpan]="4" ngFor="materials">Material {{i + 1}}
               </nz-form-label>
             <nz-form-control [nzSpan]="8">
               <nz-select
                   nzShowSearch
-                  formControlName="material"
-                  nzPlaceHolder="Materials">
+                  formControlName="id"
+                  nzPlaceHolder="Materials"
+                  [nzLoading]="materialLoading"
+                  
+                  >
                 >
                   <nz-option
                     *ngFor="let option of materialOptions"
@@ -63,12 +66,11 @@
                 </nz-select>
             </nz-form-control>
             <nz-form-control [nzSpan]="8" [nzOffset]="2">
-              <nz-input-number formControlName="quantity" nzPlaceHolder="Quantity"></nz-input-number>
+              <nz-input-number formControlName="quantity" nzPlaceHolder="Quantity" [nzMin]="0" [nzDisabled]="!materialForm.value.id" (ngModelChange)="updateTotalPrice()"></nz-input-number>
             </nz-form-control>
-            <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="delete" (click)="removeMaterial(i)"></i></button>
+            <button type="button" nz-button nzShape="circle" [disabled]="materials.length === 1"  (click)="removeMaterial(i)"><i nz-icon nzType="delete" ></i></button>
         </nz-form-item>
   </ng-container>
-
   </form>
 </ng-container>
 </nz-modal>

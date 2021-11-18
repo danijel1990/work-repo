@@ -6,6 +6,7 @@ import {
   PluginServiceGlobalRegistration,
 } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { getDate } from 'date-fns';
 import { Label, BaseChartDirective } from 'ng2-charts';
 import { InvoiceModel } from 'src/app/shared/models/invoice.model';
 
@@ -19,7 +20,7 @@ export class InvoiceChartComponent implements OnInit {
   @Input() chartData: Array<InvoiceModel>;
   emptyChartData = [
     {
-      data: [20, 30],
+      data: [],
       stack: '1',
       barPercentage: 1,
       order: 2,
@@ -34,15 +35,20 @@ export class InvoiceChartComponent implements OnInit {
       mode: null,
     },
     scales: {
-      xAxes: {
+      xAxes: [{
         type: 'category',
         position: 'bottom',
-        ticks: {},
-      },
-      yAxes: {
-        type: 'linear',
-        position: 'left',
-      },
+
+      }],
+      yAxes: [
+        {
+          type: 'linear',
+          position: 'left',
+          ticks: {
+            max: 100
+          },
+        }
+      ],
     },
     annotation: {
       // Defines when the annotations are drawn.
@@ -73,7 +79,7 @@ export class InvoiceChartComponent implements OnInit {
 
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
+  public barChartLegend = false;
   public barChartPlugins = [<PluginServiceGlobalRegistration>pluginDataLabels];
   public barChartData: ChartDataSets[] = this.emptyChartData as ChartDataSets[];
 
@@ -88,7 +94,34 @@ export class InvoiceChartComponent implements OnInit {
   }
 
   refreshData(): void {
-    var data = JSON.parse(JSON.stringify(this.emptyChartData));
+    const calculatedData = [];
+    const max = (calculatedData.map(r => r.totalPrice).sort((a,b) => b - a)[0] || 0) + 20;
+    var data = [
+      {
+        data: calculatedData.map(r => r.totalPrice),
+        stack: '1',
+        barPercentage: 1,
+        order: 2,
+        backgroundColor: [],
+      },
+    ];
+    this.barChartOptions = {...this.barChartOptions, scales: {
+      xAxes: [{
+        type: 'category',
+        position: 'bottom',
+
+      }],
+      yAxes: [
+        {
+          type: 'linear',
+          position: 'left',
+          ticks: {
+            max: max
+          },
+        }
+      ],
+    },};
+    this.barChartLabels = calculatedData.map(r => getDate(new Date(r.invoiceDate)).toString());
     this.barChartData = [...data];
   }
 }

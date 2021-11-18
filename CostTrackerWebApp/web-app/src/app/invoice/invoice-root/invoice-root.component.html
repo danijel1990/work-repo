@@ -1,19 +1,37 @@
+<div class="paddingBot">
+  <nz-date-picker [nzAllowClear]="false" nzMode="month" [(ngModel)]="selectedDate" (ngModelChange)="filterData()"></nz-date-picker>
+</div>
 <nz-switch class="paddingBot" [(ngModel)]="showTable" nzCheckedChildren="Table" nzUnCheckedChildren="Chart"></nz-switch>
 <editable-table
   *ngIf="showTable"
   [title]="title"
   [columns]="columns"
   [loading]="loading"
-  [data]="tableData"
+  [data]="filteredData"
   [reloadData]="reloadData"
   [editable]="false"
   [addOption]="false"
   [deleteOption]="false"
   [customAdd]="openModal"
+  [actionTemplates]="[edit]"
 ></editable-table>
-<app-invoice-chart *ngIf="!showTable"></app-invoice-chart>
+<app-invoice-chart *ngIf="!showTable" [chartData]="filteredData"></app-invoice-chart>
 <app-create-update-modal
 [visible]="modalVisible"
+[invoice]="selectedInvoice"
 [handleSave]="saveData"
 [handleClose]="closeModal"
 ></app-create-update-modal>
+<ng-template #edit let-record="data">
+  <button
+    nz-tooltip
+    nzTooltipTitle="Change"
+    nzTooltipPlacement="top"
+    nz-button
+    nzType="primary"
+    nzShape="circle"
+    (click)="openModal(record)"
+  >
+    <i nz-icon nzType="edit" nzTheme="outline"></i>
+  </button>
+</ng-template>
